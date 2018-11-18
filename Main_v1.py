@@ -3,6 +3,7 @@
 import sys
 from PyQt5 import QtGui,QtCore,QtWidgets
 from PyQt5.QtWidgets import QDialog
+from Import_Data import Ui_Import_Window
 from MainWindows import Ui_MainWindow
 from major_dialog import Ui_major_dialog
 from minor_dialog import Ui_minor_dialog
@@ -13,6 +14,11 @@ from mine_dialog import Ui_mine_dialog
 from trend_dialog import Ui_trend_dialog
 
 #################### Templete ################################
+class Import_Window(QtWidgets.QMainWindow,Ui_Import_Window):
+    def __init__(self):
+        super(Import_Window, self).__init__()
+        self.setupUi(self)
+
 class Main_Window(QtWidgets.QMainWindow,Ui_MainWindow):
     def __init__(self):
         super(Main_Window, self).__init__()
@@ -76,6 +82,7 @@ class Trend_Window(QDialog):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
+    ImportWindow = Import_Window()
     MainWindow = Main_Window()
     MajorWindow = Major_Window()
     MinorWindow = Minor_Window()
@@ -92,5 +99,7 @@ if __name__ == "__main__":
     MainWindow.mine_info.clicked.connect(MineWindow.show)
     MainWindow.trend.clicked.connect(TrendWindow.show)
 
-    MainWindow.show()
+    ImportWindow.show()
+    ImportWindow.Open_Main.clicked.connect(MainWindow.show)
+    #MainWindow.show()
     sys.exit(app.exec_())
